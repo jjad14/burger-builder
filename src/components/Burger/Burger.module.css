@@ -3,7 +3,7 @@
     margin: auto;
     height: 250px;
     /* og is scroll */
-    overflow: hidden; 
+    overflow: scroll; 
     text-align: center;
     font-weight: bold;
     font-size: 1.2rem;
