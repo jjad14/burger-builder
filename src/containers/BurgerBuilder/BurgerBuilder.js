@@ -32,6 +32,7 @@ class BurgerBuilder extends Component {
         purchasing: false
     };
 
+    // disable order button by checking ingredient count
     updatePurchaseState(ingredients) {
         // check if there is at least one ingredient on the burger for purchase
         const sum = Object.keys(ingredients)
@@ -47,6 +48,7 @@ class BurgerBuilder extends Component {
 
     }
 
+    // add ingredient item by type via button
     addIngrdientHandler = (type) => {
         const oldCount = this.state.ingredients[type];
         const updatedCount = oldCount + 1;
@@ -68,6 +70,7 @@ class BurgerBuilder extends Component {
         this.updatePurchaseState(updatedIngredients);
     }
 
+    // remove ingredient item by type via button
     removeIngredientHandler = (type) => {
         const oldCount = this.state.ingredients[type];
 
@@ -94,14 +97,22 @@ class BurgerBuilder extends Component {
         this.updatePurchaseState(updatedIngredients);
     }
 
+    // open modal via button click
     purchaseHandler = () => {
         this.setState({purchasing: true});
+    }
+
+    // close modal handler via backdrop click
+    purchaseCancelHandler = () => {
+        this.setState({purchasing: false});
     }
 
     render() {
         return (
             <Auxillary>
-                <Modal show={this.state.purchasing}>
+                <Modal 
+                    show={this.state.purchasing} 
+                    modalClosed={this.purchaseCancelHandler}>
                     <OrderSummary ingredients={this.state.ingredients}/>
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
