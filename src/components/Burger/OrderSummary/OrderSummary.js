@@ -5,13 +5,13 @@ import Button from '../../UI/Button/Button';
 
 const orderSummary = (props) => {
     const ingredientSummary = Object.keys(props.ingredients)
-        .map(ignKey => {
-        return (
-        <li key={ignKey}>
-            <span style={{textTransform: 'capitalize'}}>
-                {ignKey}</span>: {props.ingredients[ignKey]}
-        </li>)
-        });
+    .map(ignKey => {
+    return (
+    <li key={ignKey}>
+        <span style={{textTransform: 'capitalize'}}>
+            {ignKey}</span>: {props.ingredients[ignKey]}
+    </li>)
+    });
 
     return (
         <Auxillary>
@@ -31,5 +31,7 @@ const orderSummary = (props) => {
         </Auxillary>
     );
 };
+
+
 
 export default orderSummary;
