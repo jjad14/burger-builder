@@ -132,32 +132,37 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        this.setState({loading: true});
-        const order = {
-            ingredients: this.state.ingredients,
-            // recalculate the price on the server
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Dennis Martinez',
-                phoneNumber: '1234567890',
-                email: 'test@test.com',
-                address: {
-                    street: '123 Main Street',
-                    postalCode: 'NT6123',
-                    city: 'Toronto',
-                    country: 'Canada'
-                }
-            },
-            deliveryMethod: 'Delivery'
-        };
+        // this.setState({loading: true});
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     // recalculate the price on the server
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Dennis Martinez',
+        //         phoneNumber: '1234567890',
+        //         email: 'test@test.com',
+        //         address: {
+        //             street: '123 Main Street',
+        //             postalCode: 'NT6123',
+        //             city: 'Toronto',
+        //             country: 'Canada'
+        //         }
+        //     },
+        //     deliveryMethod: 'Delivery'
+        // };
 
-        axios.post('/orders.json', order)
-            .then(response => {
-                this.setState({loading: false, purchasing: false});
-            })
-            .catch(error => {
-                this.setState({loading: false, purchasing: false});
-            });
+        // axios.post('/orders.json', order)
+        //     .then(response => {
+        //         this.setState({loading: false, purchasing: false});
+        //     })
+        //     .catch(error => {
+        //         this.setState({loading: false, purchasing: false});
+        //     });
+
+        this.props.history.push({
+            pathname: '/checkout', 
+            search: new URLSearchParams(this.state.ingredients).toString()
+        });
     }
 
     render() {
