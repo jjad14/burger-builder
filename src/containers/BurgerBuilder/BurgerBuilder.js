@@ -39,16 +39,19 @@ class BurgerBuilder extends Component {
                 const ingredients = response.data;
                 let price = this.state.totalPrice;
                 let purchasable = this.state.purchasable;
+
                 for (let ingredient in ingredients) {
-                price += INGREDIENT_PRICES[ingredient] * ingredients[ingredient];
-                if(ingredients[ingredient]>0){
-                    purchasable = true;
-                }
+                    price += INGREDIENT_PRICES[ingredient] * ingredients[ingredient];
+                
+                    if(ingredients[ingredient]>0){
+                        purchasable = true;
+                    }
+
                 }
                 this.setState({
-                ingredients: ingredients,
-                totalPrice: price,
-                purchasable: purchasable
+                    ingredients: ingredients,
+                    totalPrice: price,
+                    purchasable: purchasable
                 });
             })
             .catch(error => {
@@ -132,36 +135,23 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        // this.setState({loading: true});
-        // const order = {
-        //     ingredients: this.state.ingredients,
-        //     // recalculate the price on the server
-        //     price: this.state.totalPrice,
-        //     customer: {
-        //         name: 'Dennis Martinez',
-        //         phoneNumber: '1234567890',
-        //         email: 'test@test.com',
-        //         address: {
-        //             street: '123 Main Street',
-        //             postalCode: 'NT6123',
-        //             city: 'Toronto',
-        //             country: 'Canada'
-        //         }
-        //     },
-        //     deliveryMethod: 'Delivery'
-        // };
+        // this.props.history.push({
+        //     pathname: '/checkout', 
+        //     search: new URLSearchParams(this.state.ingredients).toString()
+        // });
 
-        // axios.post('/orders.json', order)
-        //     .then(response => {
-        //         this.setState({loading: false, purchasing: false});
-        //     })
-        //     .catch(error => {
-        //         this.setState({loading: false, purchasing: false});
-        //     });
+
+        const queryParams = [];
+        for(let i in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+        }
+        queryParams.push('price=' + this.state.totalPrice);
+
+        const queryString = queryParams.join('&');
 
         this.props.history.push({
             pathname: '/checkout', 
-            search: new URLSearchParams(this.state.ingredients).toString()
+            search: '?' + queryString
         });
     }
 
