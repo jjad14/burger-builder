@@ -1,5 +1,6 @@
 import React from 'react';
 
+import classes from './OrderSummary.module.css';
 import Auxillary from '../../../hoc/Auxillary/Auxillary';
 import Button from '../../UI/Button/Button';
 
@@ -8,13 +9,13 @@ const orderSummary = (props) => {
     .map(ignKey => {
     return (
     <li key={ignKey}>
-        <span style={{textTransform: 'capitalize'}}>
-            {ignKey}</span>: {props.ingredients[ignKey]}
+        <span style={{textTransform: 'capitalize'}}>{ignKey}:</span> 
+        <p>x{props.ingredients[ignKey]}</p>
     </li>)
     });
 
     return (
-        <Auxillary>
+        <div className={classes.OrderSummary}>
             <h3>Your Order</h3>
             <p>A delicious burger with the following ingredients:</p>
             <ul>
@@ -28,7 +29,7 @@ const orderSummary = (props) => {
             <Button 
                 btnType="Success" 
                 clicked={props.purchasedContinued}>CONTINUE</Button>
-        </Auxillary>
+        </div>
     );
 };
 
