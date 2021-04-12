@@ -17,9 +17,11 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    validationText: 'A name is required'
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             email: {
                 elementType: 'input',
@@ -29,9 +31,11 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    validationText: 'An email is required'
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             phoneNumber: {
                 elementType: 'input',
@@ -41,9 +45,11 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    validationText: 'A phone number is required'
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             street: {
                 elementType: 'input',
@@ -53,9 +59,11 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    validationText: 'A Street Address is required'
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             postalCode: {
                 elementType: 'input',
@@ -67,9 +75,11 @@ class ContactData extends Component {
                 validation: {
                     required: true,
                     minLength: 6,
-                    maxLength: 6
+                    maxLength: 6,
+                    validationText: 'A postal code with a min length of 6 is required'
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             city: {
                 elementType: 'input',
@@ -79,9 +89,11 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    validationText: 'A city is required'
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             country: {
                 elementType: 'input',
@@ -91,9 +103,11 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    validationText: 'A Country is required'
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             deliveryMethod: {
                 elementType: 'select',
@@ -139,6 +153,7 @@ class ContactData extends Component {
             });
     }
 
+    // check validity of form element
     checkFormValidity(value, rules) {
         let isValid = [];
 
@@ -176,8 +191,7 @@ class ContactData extends Component {
 
         // check validity of form element
         updatedFormElement.valid = this.checkFormValidity(updatedFormElement.value, updatedFormElement.validation);
-
-        console.log(updatedFormElement);
+        updatedFormElement.touched = true;
 
         // update the order form with newly updated form element
         updatedOrderForm[inputId] = updatedFormElement;
@@ -207,6 +221,7 @@ class ContactData extends Component {
                         value={formEl.config.value}
                         invalid={!formEl.config.valid}
                         shouldValidate={formEl.config.validation}
+                        touched={formEl.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formEl.id)}/>
                 ))}
 
