@@ -101,6 +101,27 @@ class ContactData extends Component {
             });
     }
 
+    inputChangedHandler = (event, inputId) => {
+        // two-way binding for forms user input
+
+        // copy orderForm (not deep)
+        const updatedOrderForm = {
+            ...this.state.orderForm
+        };       
+        // get orderForm key (name, email etc)
+        const updatedFormElement = {
+            ...updatedOrderForm[inputId]
+        };
+
+        // update form element
+        updatedFormElement.value = event.target.value;
+        // update the order form with newly updated form element
+        updatedOrderForm[inputId] = updatedFormElement;
+
+        // update state
+        this.setState({orderForm: updatedOrderForm});
+    }
+
     render () {
         const formElementsArray = [];
         
@@ -119,7 +140,8 @@ class ContactData extends Component {
                         key={formEl.id} 
                         elementType={formEl.config.elementType}
                         elementConfig={formEl.config.elementConfig}
-                        value={formEl.config.value}/>
+                        value={formEl.config.value}
+                        changed={(event) => this.inputChangedHandler(event, formEl.id)}/>
                 ))}
 
                 <Button 
