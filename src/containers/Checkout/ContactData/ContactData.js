@@ -118,9 +118,11 @@ class ContactData extends Component {
                         {value: 'fastest', displayValue: 'Fastest'}
                     ]
                 },
-                value: ''
+                value: '',
+                valid: true
             },
         },
+        formIsValid: false,
         loading: false
     };
 
@@ -196,8 +198,13 @@ class ContactData extends Component {
         // update the order form with newly updated form element
         updatedOrderForm[inputId] = updatedFormElement;
 
+        let formIsValid = true;
+        for(let id in updatedOrderForm) {
+            formIsValid = updatedOrderForm[id].valid && formIsValid;
+        }
+
         // update state
-        this.setState({orderForm: updatedOrderForm});
+        this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
     }
 
     render () {
@@ -226,7 +233,8 @@ class ContactData extends Component {
                 ))}
 
                 <Button 
-                    btnType="Success">Order</Button>
+                    btnType="Success"
+                    disabled={!this.state.formIsValid}>Order</Button>
             </form>
         );
 
