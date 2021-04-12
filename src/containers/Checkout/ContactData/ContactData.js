@@ -102,43 +102,26 @@ class ContactData extends Component {
     }
 
     render () {
+        const formElementsArray = [];
+        
+        // convert state.orderForm to jsx elements
+        for(let key in this.state.orderForm) {
+            formElementsArray.push({
+               id: key,
+               config: this.state.orderForm[key] 
+            });
+        }
+
         let form = (
             <form>
-                <Input
-                    inputtype="input" 
-                    elementType="..."
-                    elementConfig="..."
-                    value=""/>
-                <Input 
-                    inputtype="input" 
-                    type="email" 
-                    name="email" 
-                    placeholder="Your Email" />
-                <Input
-                    inputtype="input" 
-                    type="tel" 
-                    name="phone" 
-                    placeholder="Phone Number" />
-                <Input 
-                    inputtype="input"
-                    type="text" 
-                    name="street" 
-                    placeholder="Street" />
-                <Input
-                    inputtype="input"
-                    type="text" 
-                    name="postalCode" 
-                    placeholder="Postal Code" />
-                <Input
-                    inputtype="input"
-                    type="text" 
-                    name="city" 
-                    placeholder="City" />
-                <Input
-                    inputtype="input"
-                    type="text" 
-                    name="country" 
-                    placeholder="Country" />
+                {formElementsArray.map(formEl => (
+                    <Input
+                        key={formEl.id} 
+                        elementType={formEl.config.elementType}
+                        elementConfig={formEl.config.elementConfig}
+                        value={formEl.config.value}/>
+                ))}
+
                 <Button 
                     btnType="Success"
                     clicked={this.orderHandler}>Order</Button>
