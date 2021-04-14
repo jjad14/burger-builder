@@ -44,12 +44,11 @@ export const auth = (email, password, isSignup) => {
         // TODO: Authenticate User
         axios.post(url, authData)
             .then(response => {
-                console.log(response);
                 dispatch(authSuccess(response.data.idToken, response.data.localId));
             })
             .catch(error => {
-                console.log(error);
-                dispatch(authFail(error));
+                console.log(error.response.data);
+                dispatch(authFail(error.response.data.error));
             });
 
     };
