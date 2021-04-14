@@ -29,7 +29,7 @@ export const fetchIngredientsFailed = () => {
     };
 };
 
-// Initially load the ingredients we can use in the burger builder
+// async action creator
 export const initIngredients = () => {
     return dispatch => {
         axios.get('/ingredients.json')
