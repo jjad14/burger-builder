@@ -178,7 +178,6 @@ class ContactData extends Component {
 
     // two-way binding for forms user input
     inputChangedHandler = (event, inputId) => {
-
         // copy orderForm (not deep)
         const updatedOrderForm = {
             ...this.state.orderForm
