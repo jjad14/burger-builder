@@ -31,9 +31,15 @@ class Layout extends Component {
                     isAuth={this.props.isAuthenticated}  
                     open={this.state.showSideDrawer} 
                     closed={this.sideDrawerClosedHandler}/>
-                <main className={classes.Content}>
-                    { this.props.children }
-                </main>
+                <div className={classes.Wrapper}>
+                    <main className={classes.Content}>
+                        { this.props.children }
+                    </main>
+                    <footer className={classes.Footer}>
+                        <h4>Build a Burger Demo Project</h4>
+                        <p>Where you make your own Burger!</p>
+                    </footer>
+                </div>
             </Auxillary>
         );
     }
