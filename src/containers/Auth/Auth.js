@@ -9,6 +9,7 @@ import Button from '../../components/UI/Button/Button';
 import ErrorMessage from '../../components/UI/ErrorMessage/ErrorMessage';
 import * as actions from '../../store/actions/index';
 import { updateObject } from '../../shared/utility';
+import { checkFormValidity } from '../../shared/validation';
 
 class Auth extends Component {
     state = {
@@ -54,38 +55,12 @@ class Auth extends Component {
         }
     }
 
-    // check validity of form element
-    checkFormValidity(value, rules) {
-        let isValid = [];
-
-        if(!rules) return true;
- 
-        if (rules.required) {
-            isValid.push(value.trim() !== '');
-        }
-    
-        if (rules.minLength) {
-            isValid.push(value.length >= rules.minLength);
-        }
-    
-        if (rules.maxLength) {
-            isValid.push(value.length <= rules.maxLength);
-        }
-
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid.push(pattern.test(value));
-        }
-    
-        return isValid.indexOf(false) > -1 ? false : true;
-    }
-
     inputChangedHandler = (event, controlName) => {
         // copy controls (not deep)
         const updatedControls = updateObject(this.state.controls, {
             [controlName]: updateObject(this.state.controls[controlName], {
                 value: event.target.value,
-                valid: this.checkFormValidity(
+                valid: checkFormValidity(
                     event.target.value, 
                     this.state.controls[controlName].validation),
                 touched: true

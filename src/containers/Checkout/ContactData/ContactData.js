@@ -9,6 +9,7 @@ import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
 import { updateObject } from '../../../shared/utility';
+import { checkFormValidity } from '../../../shared/validation';
 
 class ContactData extends Component {
     state = {
@@ -152,38 +153,12 @@ class ContactData extends Component {
         this.props.onOrderBurger(order, this.props.token);
     }
 
-    // check validity of form element
-    checkFormValidity(value, rules) {
-        let isValid = [];
-
-        if(!rules) return true;
- 
-        if (rules.required) {
-            isValid.push(value.trim() !== '');
-        }
-    
-        if (rules.minLength) {
-            isValid.push(value.length >= rules.minLength);
-        }
-    
-        if (rules.maxLength) {
-            isValid.push(value.length <= rules.maxLength);
-        }
-
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid.push(pattern.test(value));
-        }
-    
-        return isValid.indexOf(false) > -1 ? false : true;
-    }
-
     // two-way binding for forms user input
     inputChangedHandler = (event, inputId) => {
         // get orderForm key (name, email etc) and update form element, validity and touched
         const updatedFormElement = updateObject(this.state.orderForm[inputId], {
             value: event.target.value,
-            valid: this.checkFormValidity(event.target.value, this.state.orderForm[inputId].validation),
+            valid: checkFormValidity(event.target.value, this.state.orderForm[inputId].validation),
             touched: true
         });
 
