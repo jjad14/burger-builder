@@ -8,6 +8,7 @@ import axios from '../../../axios-orders';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
+import { updateObject } from '../../../shared/utility';
 
 class ContactData extends Component {
     state = {
@@ -179,24 +180,16 @@ class ContactData extends Component {
 
     // two-way binding for forms user input
     inputChangedHandler = (event, inputId) => {
-        // copy orderForm (not deep)
-        const updatedOrderForm = {
-            ...this.state.orderForm
-        };       
-        // get orderForm key (name, email etc)
-        const updatedFormElement = {
-            ...updatedOrderForm[inputId]
-        };
+        // get orderForm key (name, email etc) and update form element, validity and touched
+        const updatedFormElement = updateObject(this.state.orderForm[inputId], {
+            value: event.target.value,
+            valid: this.checkFormValidity(event.target.value, this.state.orderForm[inputId].validation),
+            touched: true
+        });
 
-        // update form element
-        updatedFormElement.value = event.target.value;
-
-        // check validity of form element
-        updatedFormElement.valid = this.checkFormValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-
-        // update the order form with newly updated form element
-        updatedOrderForm[inputId] = updatedFormElement;
+        const updatedOrderForm = updateObject(this.state.orderForm, {
+            [inputId]: updatedFormElement
+        }); 
 
         let formIsValid = true;
         for(let id in updatedOrderForm) {
