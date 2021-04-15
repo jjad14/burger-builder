@@ -53,11 +53,11 @@ export const auth = (email, password, isSignup) => {
             returnSecureToken: true
         };
         // sign up url
-        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCo27ZKLmdj9iMuqGOtX8U3mtyKOv_-Q3g';
+        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + process.env.REACT_APP_FIREBASE_API_KEY;
 
         if (!isSignup) {
             // sign in url
-            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCo27ZKLmdj9iMuqGOtX8U3mtyKOv_-Q3g';
+            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + process.env.REACT_APP_FIREBASE_API_KEY;
         }
 
         // TODO: Authenticate User
